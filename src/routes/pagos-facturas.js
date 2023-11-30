@@ -2,50 +2,47 @@ const express = require("express")
 const router = express.Router();
 const pagosModel = require("../models/pagos-facturas")
 
-//getF
+// GET (Mostrar todas las facturas)
+
 router.get("/pagos-facturas", (req, res) => {
     pagosModel.find ()
     .then((data) => res.json(data))
     .catch((error) => res.json({mensaje: error}))
 });
 
+// GET CON (uscar facturas por cliente, fecha, monto y estado)
+router.get("/pagos-facturas/filtrar", (req, res) => {
+    const { cliente, fecha, monto, estado } = req.query;
 
-//get con id
-router.get("/pagos-facturas/:id", (req, res) => {
-    const {id} =req.params;
-    pagosModel.findById (id)
-    .then((data) => res.json(data))
-    .catch((error) => res.json({mensaje: error}))
-})
-//busquedas con utilizar metodo find y la agregar funcion
+    // funcion de busquedad
+    const busqueda = {};
+    if (cliente) {
+        busqueda.cliente = cliente;
+    }
+    if (fecha) {
+        busqueda.fecha = fecha;
+    }
+    if (monto) {
+        busqueda.monto = monto;
+    }
+    if (estado) {
+        busqueda.estado = estado;
+    }
 
-// POST
+    // utilizamos find para la busquedad
+    pagosModel.find(busqueda)
+        .then((data) => res.json(data))
+        .catch((error) => res.json({ mensaje: error }));
+});
+
+// Busquedas utilizando metodo find y agregar funcion
+
+// POST (Agregar una nueva factura)
 router.post("/pagos-facturas", (req, res) => {
     const facturas = new pagosModel(req.body);
     facturas.save()
     .then((data) => res.json({mensaje: "Guardado correctamente"}))
     .catch((error) => res.json({mensaje: error}))
 });
-
-
-// PUT
-router.put("/pagos-facturas/:id", (req, res) => {
-    const { id } = req.params;
-    const { cliente, tipo_servicio, fecha, monto, estado } = req.body;
-    pagosModel.updateOne({_id: id}, {$set:{cliente, tipo_servicio, fecha, monto, estado}})
-    .then((data) => res.json({mensaje: "Actualizado correctamente"}))
-    .catch((error) => res.json({mensaje: error}))
-});
-
-
-//DELETE
-
-router.delete("/pagos-facturas/:id", (req, res) => {
-    const {id} =req.params;
-    pagosModel.deleteOne ({_id:id})
-    .then((data) => res.json({mensaje: "Objeto eliminado"}))
-    .catch((error) => res.json({mensaje: error}))
-})
-
 
 module.exports = router
