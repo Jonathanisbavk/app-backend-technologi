@@ -2,27 +2,43 @@ const express = require("express")
 const router = express.Router();
 const usuariosModel = require("../models/usuarios")
 
-//getF
+// GET (Mostrar todas los clientes)
+
 router.get("/usuarios", (req, res) => {
     usuariosModel.find ()
     .then((data) => res.json(data))
     .catch((error) => res.json({mensaje: error}))
 });
 
+// GET CON disque Parametro de busqueda (buscar clientes por dni, apellido, correo)
+router.get("/usuarios/filtrar", (req, res) => {
+    const { dni, apellido, correo } = req.query;
 
-//get con id
-router.get("/usuarios/:id", (req, res) => {
-    const {id} =req.params;
-    usuariosModel.findById (id)
-    .then((data) => res.json(data))
-    .catch((error) => res.json({mensaje: error}))
-})
+    // funcion de busqueda
+    const busqueda = {};
+    if (dni) {
+        busqueda.dni = dni;
+    }
+    if (apellido) {
+        busqueda.apellido = apellido;
+    }
+    if (correo) {
+        busqueda.correo = correo;
+    }
 
-// POST
+    // utilizamos el metodo find para la busqueda
+    usuariosModel.find(busqueda)
+        .then((data) => res.json(data))
+        .catch((error) => res.json({ mensaje: error }));
+});
+
+// Busquedas utilizando metodo find y agregar funcion
+
+// POST (Agregar un nuevo usuario)
 router.post("/usuarios", (req, res) => {
-    const newuser = new usuariosModel(req.body);
-    newuser.save()
-    .then((data) => res.json({mensaje: "Guardado correctamente"}))
+    const usuarios = new usuariosModel(req.body);
+    usuarios.save()
+    .then((data) => res.json({mensaje: "Registrado correctamente"}))
     .catch((error) => res.json({mensaje: error}))
 });
 
@@ -30,21 +46,20 @@ router.post("/usuarios", (req, res) => {
 // PUT
 router.put("/usuarios/:id", (req, res) => {
     const { id } = req.params;
-    const { dni, edad, nombre, apellido, sexo, correo } = req.body;
-    usuariosModel.updateOne({_id: id}, {$set:{dni, edad, nombre, apellido, sexo, correo}})
+    const { dni, edad, nombre, apellido, Sexo, correo } = req.body;
+    usuariosModel.updateOne({_id: id}, {$set:{ dni, edad, nombre, apellido, Sexo, correo }})
     .then((data) => res.json({mensaje: "Actualizado correctamente"}))
     .catch((error) => res.json({mensaje: error}))
 });
 
 
-//DELETE
+// DELETE
 
 router.delete("/usuarios/:id", (req, res) => {
     const {id} =req.params;
-    usuariosModel.deleteOne ({_id:id})
-    .then((data) => res.json({mensaje: "Objeto eliminado"}))
+    usuarioModel.deleteOne ({_id:id})
+    .then((data) => res.json({mensaje: "Usuario eliminado correctamente"}))
     .catch((error) => res.json({mensaje: error}))
 })
 
-
-module.exports = router
+module.exports = router

@@ -11,7 +11,7 @@ require("dotenv").config()
 const aplicacion = express();
 const puerto = 3000;
 
-// Middleware para analizar el cuerpo de la solicitud
+// Middleware(Sistema de software para intercambio de info) para analizar el cuerpo de la solicitud
 aplicacion.use(express.json());
 
 //rutas
