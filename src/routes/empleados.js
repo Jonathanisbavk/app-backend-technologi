@@ -2,7 +2,7 @@ const express = require("express")
 const router = express.Router();
 const empleadosModel = require("../models/empleados")
 
-//getF
+//getF (Mostrar todas los empleados)
 router.get("/empleados", (req, res) => {
     empleadosModel.find ()
     .then((data) => res.json(data))
@@ -10,7 +10,7 @@ router.get("/empleados", (req, res) => {
 });
 
 
-//get con nombre, cargo y correo
+//get con nombre, cargo y correo (buscar empleado por nombre, cargo y correo)
 router.get("/empleados/filtrar", (req, res) => {
     const { nombre, cargo, correo } = req.query;
 
@@ -31,7 +31,8 @@ router.get("/empleados/filtrar", (req, res) => {
         .then((data) => res.json(data))
         .catch((error) => res.json({ mensaje: error }));
 });
-// POST
+
+// POST (Agregar un nuevo empleado)
 router.post("/empleados", (req, res) => {
     const empleado = new empleadosModel(req.body);
     empleado.save()
@@ -39,7 +40,7 @@ router.post("/empleados", (req, res) => {
     .catch((error) => res.json({mensaje: error}))
 });
 
-// PUT
+// PUT 
 router.put("/empleados/:id", (req, res) => {
     const { id } = req.params;
     const { nombre,cargo, correo } = req.body;
@@ -57,7 +58,6 @@ router.delete("/empleados/:id", (req, res) => {
     .catch((error) => res.json({mensaje: error}))
 })
 
-// seleccionar los metodos adecuados y agregar mas info para las busquedas
-module.exports = router
+module.exports = router
 
 
