@@ -53,7 +53,7 @@ router.put("/empleados/:id", (req, res) => {
 router.delete("/empleados/:id", (req, res) => {
     const {id} =req.params;
     empleadosModel.deleteOne ({_id:id})
-    .then((data) => res.json({mensaje: "Objeto eliminado"}))
+    .then((data) => res.json({mensaje: "Empleado correctamente eliminado"}))
     .catch((error) => res.json({mensaje: error}))
 })
 
