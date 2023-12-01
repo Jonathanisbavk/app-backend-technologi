@@ -14,7 +14,7 @@ router.get("/informacion-consultoria", (req, res) => {
 //CLIENTE, FECHA, ESTADO
 
 router.get("/informacion-consultoria/filtrar", (req, res) => {
-    const { cliente, fecha, monto, estado } = req.query;
+    const { cliente, fecha, estado } = req.query;
 
     // funcion de busquedad
     const busqueda = {};
@@ -25,7 +25,7 @@ router.get("/informacion-consultoria/filtrar", (req, res) => {
         busqueda.fecha = fecha;
     }
     if (estado) {
-        busqueda.monto = monto;
+        busqueda.estado = estado;
     }
 
     // utilizamos find para la busquedad
