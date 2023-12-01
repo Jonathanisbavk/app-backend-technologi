@@ -11,40 +11,36 @@ router.get("/informacion-consultoria", (req, res) => {
 
 
 // GET con ID
-router.get("/cnformacion-consultoria/:id", (req, res) => {
-    const {id} =req.params;
-    infoModel.findById (id)
-    .then((data) => res.json(data))
-    .catch((error) => res.json({mensaje: error}))
-})
+//CLIENTE, FECHA, ESTADO
 
+router.get("/informacion-consultoria/filtrar", (req, res) => {
+    const { cliente, fecha, monto, estado } = req.query;
+
+    // funcion de busquedad
+    const busqueda = {};
+    if (cliente) {
+        busqueda.cliente = cliente;
+    }
+    if (fecha) {
+        busqueda.fecha = fecha;
+    }
+    if (estado) {
+        busqueda.monto = monto;
+    }
+
+    // utilizamos find para la busquedad
+    infoModel.find(busqueda)
+        .then((data) => res.json(data))
+        .catch((error) => res.json({ mensaje: error }));
+});
 // POST
 router.post("/informacion-consultoria", (req, res) => {
     const consulta = new infoModel(req.body);
     consulta.save()
-    .then((data) => res.json({mensaje: "Guardado correctamente"}))
+    .then((data) => res.json({mensaje: "Consulta guardada correctamente"}))
     .catch((error) => res.json({mensaje: error}))
 });
 
-
-// PUT
-router.put("/informacion-consultoria/:id", (req, res) => {
-    const { id } = req.params;
-    const { cliente, tipo_servicio, fecha, pregunta_frecuente, estado } = req.body;
-    infoModel.updateOne({_id: id}, {$set:{cliente, tipo_servicio, fecha, pregunta_frecuente, estado}})
-    .then((data) => res.json({mensaje: "Actualizado correctamente"}))
-    .catch((error) => res.json({mensaje: error}))
-});
-
-
-// DELETE
-
-router.delete("/informacion-consultoria/:id", (req, res) => {
-    const {id} =req.params;
-    infoModel.deleteOne ({_id:id})
-    .then((data) => res.json({mensaje: "Objeto eliminado"}))
-    .catch((error) => res.json({mensaje: error}))
-})
 
 
 module.exports = router
