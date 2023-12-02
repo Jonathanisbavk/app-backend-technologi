@@ -238,49 +238,16 @@ router.put("/usuarios/:id", (req, res) => {
 
 /**
  * @swagger
- * /usuarios/{id}:
+ * /api/usuarios:
  *   delete:
- *     summary: Eliminar informacion de un usuario
+ *     summary: Eliminar información de un usuario por correo
  *     tags: [usuarios]
  *     parameters:
- *       - in: path
- *         name: id
- *         required: true
+ *       - in: query
+ *         name: correo
  *         schema:
  *           type: string
- *         description: ID del usuario a eliminar
- *       - in: body
- *         name: body
- *         required: true
- *         description: Los datos eliminados del usuario
- *         schema:
- *          type: object
- *          properties:
- *              dni:
- *                  type: number
- *                  description: Dni del usuario.
- *              edad:
- *                  type: number
- *                  description: Edad del usuario
- *              nombre:
- *                  type: string
- *                  description: Nombre del usuario
- *              apellido:
- *                  type: string
- *                  description: Apellido del usuario
- *              Sexo:
- *                  type: string
- *                  description: Sexo del usuario
- *              correo:
- *                  type: string
- *                  description: Correo del usuario
- *          required:
- *              - dni
- *              - edad
- *              - nombre
- *              - apellido
- *              - Sexo
- *              - correo
+ *         description: Correo del usuario a eliminar
  *     responses:
  *       200:
  *         description: El usuario se eliminó correctamente
@@ -295,13 +262,13 @@ router.put("/usuarios/:id", (req, res) => {
  */
 
 
-// DELETE
+// DELETE por correo
+router.delete("/usuarios", (req, res) => {
+    const { correo } = req.query;
+    usuariosModel.deleteOne({ correo: correo })
+        .then((data) => res.json({ mensaje: "Usuario eliminado correctamente" }))
+        .catch((error) => res.json({ mensaje: error }));
+});
 
-router.delete("/usuarios/:id", (req, res) => {
-    const {id} =req.params;
-    usuarioModel.deleteOne ({_id:id})
-    .then((data) => res.json({mensaje: "Usuario eliminado correctamente"}))
-    .catch((error) => res.json({mensaje: error}))
-})
 
 module.exports = router

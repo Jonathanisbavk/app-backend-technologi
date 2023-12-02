@@ -30,13 +30,6 @@ const empleadosModel = require("../models/empleados")
 
 /**
  * @swagger
- * tags:
- *   name: Documentacion de Github
- *   description: Operaciones relacionadas en API
- */
-
-/**
- * @swagger
  * /empleados:
  *   get:
  *     summary: Obtener todos los empleados
