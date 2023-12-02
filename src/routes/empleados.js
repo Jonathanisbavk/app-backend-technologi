@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const empleadosModel = require("../models/empleados")
 
-// Version your API by adding a version number in the route
+// Versionamos la API agregando un número de versión en la ruta
 const apiVersion = "/v1";
 
 // GET (Mostrar todas los empleados)
