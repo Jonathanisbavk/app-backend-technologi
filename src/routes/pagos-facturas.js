@@ -159,7 +159,7 @@ router.get("/pagos-facturas/filtrar", (req, res) => {
 router.post("/pagos-facturas", (req, res) => {
     const facturas = new pagosModel(req.body);
     facturas.save()
-    .then((data) => res.json({mensaje: "Guardado correctamente"}))
+    .then((data) => res.json({mensaje: "Factura agregado correctamente"}))
     .catch((error) => res.json({mensaje: error}))
 });
 
