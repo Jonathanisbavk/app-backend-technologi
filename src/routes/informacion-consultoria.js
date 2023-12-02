@@ -31,10 +31,10 @@ const infoModel = require("../models/informacion-consultoria")
  *              - pregunta_frecuente
  *              - estado
  *          example:
- *              cliente: Cliente1
- *              tipo_servicio: Consulta
+ *              cliente: Movistar
+ *              tipo_servicio: Consulta de Ciberseguridad
  *              fecha: 2023-11-24T12:00:00.000Z
- *              pregunta_frecuente: ¿Cuál es la consulta?
+ *              pregunta_frecuente: ¿Cuanto está la consulta de ciberseguridad?
  *              estado: Pendiente
  */
 
