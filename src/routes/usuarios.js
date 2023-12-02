@@ -2,6 +2,50 @@ const express = require("express")
 const router = express.Router();
 const usuariosModel = require("../models/usuarios")
 
+
+/**
+ * @swagger
+ * components:
+ *  schemas:
+ *      usuarios:
+ *          type: object
+ *          properties:
+ *              dni:
+ *                  type: Number
+ *                  description: Dni del cliente.
+ *              edad:
+ *                  type: Number
+ *                  description: Edad del cliente.
+ *              nombre:
+ *                  type: string
+ *                  description: Nombre del cliente.
+ *              apellido:
+ *                  type: string
+ *                  description: Apellido del cliente.
+ *              Sexo:
+ *                  type: string
+ *                  description: Sexo del cliente.
+ *              correo:
+ *                  type: string
+ *                  description: Correo del cliente.
+ *          required:
+ *              - dni
+ *              - edad
+ *              - nombre
+ *              - apellido
+ *              - Sexo
+ *              - correo
+ *          example:
+ *              dni: 10000000
+ *              edad: 20
+ *              nombre: Juanito
+ *              apellido: Lopez
+ *              Sexo: Masculino
+ *              correo: juanito.lopez@examples.com
+ */
+
+
+
 // GET (Mostrar todas los clientes)
 
 router.get("/usuarios", (req, res) => {
