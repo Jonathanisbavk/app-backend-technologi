@@ -102,7 +102,7 @@ router.get("/pagos-facturas", (req, res) => {
  *                 $ref: '#/components/schemas/pagos-facturas'
  */
 
-// GET CON (uscar facturas por cliente, fecha, monto y estado)
+// GET CON (buscar facturas por cliente, fecha, monto y estado)
 router.get("/pagos-facturas/filtrar", (req, res) => {
     const { cliente, fecha, monto, estado } = req.query;
 
